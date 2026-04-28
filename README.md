@@ -1,29 +1,31 @@
 # Välkommen till CV API
-Detta repository innehåller kod för en REST API som är framtagen med Express och NodeJs. API:et används för att hantera arbetserfarenheter (work experience) i ett CV. Funktioner för CRUD (Create, Read, Update, Delete) är implementerade.
+Detta repository innehåller kod för en REST API som är framtagen med Express, NodeJs och MongoDB som databas. API:et används för att hantera arbetserfarenheter (work experience) i ett CV. Funktioner för CRUD (Create, Read, Update, Delete) är implementerade.
 
 ### Länk
 APIet kärs lokalt i port 3000: http://localhost:3000
 
 ### Installation
-För att använda dett API ska detta repository klonas. Du behöver installera npm men npm install och servern startas genom npm run start (eller npm run dev med nodemon). Servern kommer att köras i porten 3000.
+För att använda APIet ska detta repository klonas. Du behöver även installera beroenden med npm install och starta servern genom npm run start (eller npm run dev med nodemon). Servern kommer att köras i port 3000. Sedan behöver du också skapa en .env fil och lägga in denna connection string:
+
+MONGODB_URI=mongodb://DITT_ANVÄNDARNAMN:DITT_LÖSENORD@ac-1vytctv-shard-00-00.kufsz43.mongodb.net:27017,ac-1vytctv-shard-00-01.kufsz43.mongodb.net:27017,ac-1vytctv-shard-00-02.kufsz43.mongodb.net:27017/?ssl=true&replicaSet=atlas-1ukexq-shard-0&authSource=admin&appName=laboration-3-backend
 
 ### Databas
-Denna API använder en NoSQL databas i MongoDB via Mongoose och MongoDB Atlas. Databasen innehåller en collection med namnet workexperience. 
+API:et använder en NoSQL-databas genom MongoDB och Mongoose för schemavalidering.
 
 Databas: cv  
-Tabell: workexperience
+Collection: workexperience
 
-| Fält          | Datatyp                | Krav        | Beskrivning                          |
-|--------------|------------------------|------------|--------------------------------------|
-| id           | INTEGER                | PRIMARY KEY, AUTOINCREMENT | Unikt ID för varje post |
-| company_name | TEXT                   | NOT NULL   | Namn på företag                     |
-| position     | TEXT                   | NOT NULL   | Jobbtitel                           |
-| description  | TEXT                   | NOT NULL   | Beskrivning av arbetet              |
-| start_date   | DATE                   | NOT NULL   | Startdatum för anställning          |
-| end_date     | DATE                   | NOT NULL   | Slutdatum för anställning           |
-| location     | TEXT                   | NOT NULL   | Plats där arbetet utfördes          |
+| Fält         | Datatyp                | Krav              | Beskrivning                          |
+|--------------|------------------------|-------------------|--------------------------------------|
+| id           | OBJECTID               | SKAPAS AUTOMATISKT| Unikt ID för varje post |
+| company_name | STRING                 | REQUIRED          | Namn på företag                     |
+| position     | STRING                 | REQUIRED          | Jobbtitel                           |
+| description  | STRING                 | REQUIRED          | Beskrivning av arbetet              |
+| start_date   | DATE                   | REQUIRED          | Startdatum för anställning          |
+| end_date     | DATE                   | REQUIRED          | Slutdatum för anställning           |
+| location     | STRING                 | REQUIRED          | Plats där arbetet utfördes          |
 
-Ett objekt skickas som JSON-data med följande struktur:
+Exempel på JSON-data:
 {
   "company_name": "Mittuniversitetet",
   "position": "Senior Labbhandledare",
