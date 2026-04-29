@@ -17,6 +17,7 @@ app.use(express.json());
 mongoose.connect(process.env.MONGODB_URI, {
     serverSelectionTimeoutMS: 5000
 })
+
 .then(() => console.log("Ansluten till MongoDB databas"))
 .catch((error) => console.error("Fel vid anslutning:", error.message));
 
@@ -99,12 +100,12 @@ app.delete("/api/workexperience/:id", async (req, res) => {
     }
 });
 
-// Funktion i API för att hämta en specifik post från användarenS work experience
+// Funktion i API för att hämta en specifik post från användarens work experience
 app.get("/api/workexperience/:id", async (req, res) => {
     const { id } = req.params;
 
     try {
-        const data = await workexperience.findById(req, params.id);
+        const data = await workexperience.findById(id);
         res.json(data);
     } catch (error) {
         res.status(500).json({error: "Fel vid hämtning av data"});
